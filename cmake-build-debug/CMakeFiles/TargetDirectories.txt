@@ -1,3 +1,3 @@
-C:/Users/wrzos/CLionProjects/untitled4/cmake-build-debug/CMakeFiles/untitled4.dir
-C:/Users/wrzos/CLionProjects/untitled4/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/wrzos/CLionProjects/untitled4/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/wrzos/Desktop/compression tool/Compression-tool/cmake-build-debug/CMakeFiles/untitled4.dir
+C:/Users/wrzos/Desktop/compression tool/Compression-tool/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/wrzos/Desktop/compression tool/Compression-tool/cmake-build-debug/CMakeFiles/rebuild_cache.dir
