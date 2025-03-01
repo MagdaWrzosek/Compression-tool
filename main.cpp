@@ -2,6 +2,8 @@
 #include <queue>
 #include <vector>
 #include <unordered_map>
+#include <string>
+
 
 struct Node {
     char symbol;
@@ -25,7 +27,7 @@ struct Compare {
 
 Node *buildHuffmanTree(const std::unordered_map<char, int> &frequencies);
 
-std::unordered_map<char, std::string> generateCodes(Node* root);
+std::unordered_map<char, std::string> generateCodes(Node* root, std::string code = "");
 
 
 int main() {
@@ -33,7 +35,7 @@ int main() {
     std::string example = "aaaaabbbcccc";
     std::unordered_map<char,int> exFreqMap;
     for (char ch : example) {
-        std::cout << ch << std::endl;
+       // std::cout << ch << std::endl;
         exFreqMap[ch]++;
     }
 
@@ -42,9 +44,10 @@ int main() {
     //{a:5, b:3, c:4}
 
     //generating Huffman codes
-
-
-
+    std::unordered_map <char, std::string> exMap = generateCodes(exNode);
+    for (std::pair <char, std::string> p : exMap) {
+        std::cout << p.first << " : " << p.second << std::endl;
+    }
 
     return 0;
 }
@@ -70,7 +73,7 @@ Node *buildHuffmanTree(const std::unordered_map<char, int> &frequencies) {
     return pq.top();
 }
 //codes are generated recursively
-std::unordered_map<char, std::string> generateCodes(Node* root, std::string code = ""){     //default arg
+std::unordered_map<char, std::string> generateCodes(Node* root,std::string code){     //default arg
     std::unordered_map<char, std::string> huffmanCodes;
     if (root->symbol != '\0') {             //not a leaf
         huffmanCodes [root->symbol] = code;
