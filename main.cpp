@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <string>
 #include <fstream>
+#include <sstream>
 
 struct Node {
     char symbol;
@@ -49,18 +50,28 @@ int main() {
         std::cout << p.first << " : " << p.second << std::endl;
     }
     */
-    std::ifstream fileStream; fileStream.open("mytxtfile.txt");
-    std::string myString;
-    if (fileStream.is_open()) { // always check whether the file is open
-        fileStream >> myString;
+    std::ifstream fileStream1("mytxtfile.txt", std::ios::binary);
+    
+    std::ifstream fileStream("mytxtfile.txt");
+    if (!fileStream) {
+        std::cerr << "Cannot open file" << std::endl;
+        return 1;
     }
-    fileStream.close();
-    std::cout << myString << std::endl;
+
+    std::string myString;
+    char ch;
+    while (fileStream.get(ch)) {
+        myString += ch;
+    }
+    fileStream.close(); // Zamykamy plik
+
 
     std::unordered_map<char, int> exFreqMap2;
     for (char ch: myString) {
-         std::cout << ch << std::endl;
         exFreqMap2[ch]++;
+    }
+    for (std::pair<char, int> p: exFreqMap2) {
+        std::cout << p.first << " : " << p.second << std::endl;
     }
 
     Node *exNode2 = buildHuffmanTree(exFreqMap2);
