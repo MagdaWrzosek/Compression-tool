@@ -28,59 +28,22 @@ struct Compare {
 
 Node *buildHuffmanTree(const std::unordered_map<char, int> &frequencies);
 
+Node *buildHuffmanTreeFromFile(const std::string file);
+
+
 std::unordered_map<char, std::string> generateCodes(Node* root, std::string code = "");
 
 
 int main() {
-    std::cout << "Hello, World!" << std::endl;
-   /* std::string example = "aaaaabbbcccc";
-    std::unordered_map<char, int> exFreqMap;
-    for (char ch: example) {
-         std::cout << ch << std::endl;
-       exFreqMap[ch]++;
-    }
 
-    Node *exNode = buildHuffmanTree(exFreqMap);
+    //generating Huffman codes for the contents of txt file
 
-    //{a:5, b:3, c:4}
-
-    //generating Huffman codes
-    std::unordered_map<char, std::string> exMap = generateCodes(exNode);
+    /*std::unordered_map<char, std::string> exMap = generateCodes(exNode);
     for (std::pair<char, std::string> p: exMap) {
         std::cout << p.first << " : " << p.second << std::endl;
     }
-    */
-    std::ifstream fileStream1("mytxtfile.txt", std::ios::binary);
-    
-    std::ifstream fileStream("mytxtfile.txt");
-    if (!fileStream) {
-        std::cerr << "Cannot open file" << std::endl;
-        return 1;
-    }
-
-    std::string myString;
-    char ch;
-    while (fileStream.get(ch)) {
-        myString += ch;
-    }
-    fileStream.close(); // Zamykamy plik
-
-
-    std::unordered_map<char, int> exFreqMap2;
-    for (char ch: myString) {
-        exFreqMap2[ch]++;
-    }
-    for (std::pair<char, int> p: exFreqMap2) {
-        std::cout << p.first << " : " << p.second << std::endl;
-    }
-
-    Node *exNode2 = buildHuffmanTree(exFreqMap2);
-
-    //generating Huffman codes for the contents of txt file
-    std::unordered_map<char, std::string> exMap2 = generateCodes(exNode2);
-    for (std::pair<char, std::string> p: exMap2) {
-        std::cout << p.first << " : " << p.second << std::endl;
-    }
+     */
+    Node newExample = *buildHuffmanTreeFromFile("mytxtfile.txt");
 
     return 0;
 }
@@ -104,6 +67,25 @@ Node *buildHuffmanTree(const std::unordered_map<char, int> &frequencies) {
     }
 
     return pq.top();
+}
+Node *buildHuffmanTreeFromFile(const std::string file) {
+
+    std::ifstream fileStream(file);
+    if (!fileStream) {
+        std::cerr << "Cannot open file" << std::endl;
+    }
+
+    std::unordered_map<char, int> exFreqMap;
+    char ch;
+    while (fileStream.get(ch)) {
+        exFreqMap[ch]++;
+    }
+    fileStream.close();
+
+    for (std::pair<char, int> p: exFreqMap) {
+        std::cout << p.first << " : " << p.second << std::endl;
+    }
+    Node *exNode2 = buildHuffmanTree(exFreqMap);
 }
 //codes are generated recursively
 std::unordered_map<char, std::string> generateCodes(Node* root,std::string code){     //default arg
