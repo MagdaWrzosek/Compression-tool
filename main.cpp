@@ -33,6 +33,9 @@ Node *buildHuffmanTreeFromFile(const std::string file);
 
 std::unordered_map<char, std::string> generateCodes(Node* root, std::string code = "");
 
+std::string encode (std::string source, std::unordered_map<char, std::string> huffmanCodes);
+
+
 
 int main() {
 
@@ -103,4 +106,13 @@ std::unordered_map<char, std::string> generateCodes(Node* root,std::string code)
 
 
     return huffmanCodes;
+}
+std::string encode (std::string source , std::unordered_map<char, std::string> huffmanCodes){
+    std::string result;
+    for(char ch: source){
+        if(huffmanCodes.find(ch) != huffmanCodes.end()){
+            result += huffmanCodes.find(ch)->second;
+        }
+    }
+    return result;
 }
