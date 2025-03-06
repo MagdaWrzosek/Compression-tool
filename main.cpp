@@ -48,7 +48,29 @@ int main() {
      */
     Node newExample = *buildHuffmanTreeFromFile("mytxtfile.txt");
 
-    return 0;
+    std::ofstream file("newfile.txt");
+    if (file.is_open()) {
+
+        file << "Example txt\n";
+        file.close();
+        std::cout << "Data saved successfully.\n";
+    } else {
+        std::cout << "File creation error\n";
+    }
+    std::ifstream fileStream1("newfile.txt");
+    if (!fileStream1) {
+        std::cerr << "Cannot open file" << std::endl;
+    }
+    std::string string1;
+    char ch1;
+    while (fileStream1.get(ch1)) {
+        string1+= ch1;
+    }
+    fileStream1.close();
+
+    std::cout << string1 << std::endl;
+
+        return 0;
 }
 Node *buildHuffmanTree(const std::unordered_map<char, int> &frequencies) {
 
