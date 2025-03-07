@@ -5,6 +5,8 @@
 #include <string>
 #include <fstream>
 #include <sstream>
+#include <filesystem>
+
 
 struct Node {
     char symbol;
@@ -35,8 +37,6 @@ std::unordered_map<char, std::string> generateCodes(Node* root, std::string code
 
 std::string encode (std::string source, std::unordered_map<char, std::string> huffmanCodes);
 
-
-
 int main() {
 
     //generating Huffman codes for the contents of txt file
@@ -48,7 +48,7 @@ int main() {
      */
     Node newExample = *buildHuffmanTreeFromFile("mytxtfile.txt");
 
-    std::ofstream file("newfile.txt");
+    std::ofstream file("./newfile.txt");
     if (file.is_open()) {
 
         file << "Example txt\n";
@@ -57,6 +57,7 @@ int main() {
     } else {
         std::cout << "File creation error\n";
     }
+
     std::ifstream fileStream1("newfile.txt");
     if (!fileStream1) {
         std::cerr << "Cannot open file" << std::endl;
@@ -69,6 +70,8 @@ int main() {
     fileStream1.close();
 
     std::cout << string1 << std::endl;
+
+    std::cout << std::filesystem::exists("newfile.txt");
 
         return 0;
 }
@@ -99,7 +102,6 @@ Node *buildHuffmanTreeFromFile(const std::string file) {
     if (!fileStream) {
         std::cerr << "Cannot open file" << std::endl;
     }
-
     std::unordered_map<char, int> exFreqMap;
     char ch;
     while (fileStream.get(ch)) {
@@ -110,7 +112,9 @@ Node *buildHuffmanTreeFromFile(const std::string file) {
     for (std::pair<char, int> p: exFreqMap) {
         std::cout << p.first << " : " << p.second << std::endl;
     }
-    Node *exNode2 = buildHuffmanTree(exFreqMap);
+    Node *exNodeFromFile = buildHuffmanTree(exFreqMap);
+
+    return exNodeFromFile;
 }
 //codes are generated recursively
 std::unordered_map<char, std::string> generateCodes(Node* root,std::string code){     //default arg
