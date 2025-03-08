@@ -37,6 +37,8 @@ std::unordered_map<char, std::string> generateCodes(Node* root, std::string code
 
 std::string encode (std::string source, std::unordered_map<char, std::string> huffmanCodes);
 
+void writeToFile(std::string fileName);
+
 int main() {
 
     //generating Huffman codes for the contents of txt file
@@ -48,15 +50,7 @@ int main() {
      */
     Node newExample = *buildHuffmanTreeFromFile("mytxtfile.txt");
 
-    std::ofstream file("./newfile.txt");
-    if (file.is_open()) {
-
-        file << "Example txt\n";
-        file.close();
-        std::cout << "Data saved successfully.\n";
-    } else {
-        std::cout << "File creation error\n";
-    }
+    //writeToFile("xxx");
 
     std::ifstream fileStream1("newfile.txt");
     if (!fileStream1) {
@@ -71,7 +65,7 @@ int main() {
 
     std::cout << string1 << std::endl;
 
-    std::cout << std::filesystem::exists("newfile.txt");
+
 
         return 0;
 }
@@ -109,9 +103,6 @@ Node *buildHuffmanTreeFromFile(const std::string file) {
     }
     fileStream.close();
 
-    for (std::pair<char, int> p: exFreqMap) {
-        std::cout << p.first << " : " << p.second << std::endl;
-    }
     Node *exNodeFromFile = buildHuffmanTree(exFreqMap);
 
     return exNodeFromFile;
@@ -130,6 +121,8 @@ std::unordered_map<char, std::string> generateCodes(Node* root,std::string code)
     huffmanCodes.insert(leftMap.begin(),leftMap.end());
     huffmanCodes.insert(rightMap.begin(), rightMap.end());
 
+    //writeToFile("codes");
+    //codes need to be written into a file
 
     return huffmanCodes;
 }
@@ -141,4 +134,18 @@ std::string encode (std::string source , std::unordered_map<char, std::string> h
         }
     }
     return result;
+}
+void writeToFile(std::string fileName){
+    std::ofstream file("./" + fileName);
+    if (file.is_open()) {
+
+        file << "New text\n";
+        file.close();
+        std::cout << "Data saved successfully.\n";
+    } else {
+        std::cout << "File creation error\n";
+    }
+    std::ifstream file1 ("./" + fileName);
+
+    //std::cout <<  << std::endl;
 }
