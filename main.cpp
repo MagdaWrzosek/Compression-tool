@@ -39,6 +39,8 @@ std::string encode (std::string source, std::unordered_map<char, std::string> hu
 
 void writeToFile(std::string fileName);
 
+void saveHuffmanCodesToFile(std::unordered_map<char, std::string> *huffmanCodes, const std::string &filename);
+
 int main() {
 
     //generating Huffman codes for the contents of txt file
@@ -48,9 +50,12 @@ int main() {
         std::cout << p.first << " : " << p.second << std::endl;
     }
      */
-    Node newExample = *buildHuffmanTreeFromFile("mytxtfile.txt");
+   // Node newExample = *buildHuffmanTreeFromFile("mytxtfile.txt");
 
-    //writeToFile("xxx");
+
+    std::unordered_map<char, std::string> huffmanCodes = generateCodes(buildHuffmanTreeFromFile("mytxtfile.txt"),"");
+    saveHuffmanCodesToFile(  &huffmanCodes, "./codes");
+
 
     std::ifstream fileStream1("newfile.txt");
     if (!fileStream1) {
@@ -66,8 +71,7 @@ int main() {
     std::cout << string1 << std::endl;
 
 
-
-        return 0;
+    return 0;
 }
 Node *buildHuffmanTree(const std::unordered_map<char, int> &frequencies) {
 
@@ -148,4 +152,17 @@ void writeToFile(std::string fileName){
     std::ifstream file1 ("./" + fileName);
 
     //std::cout <<  << std::endl;
+}
+void saveHuffmanCodesToFile(std::unordered_map<char, std::string> *huffmanCodes, const std::string &filename) {
+    std::ofstream file(filename);
+    if (!file) {
+        std::cerr << "File creation error\n";
+        return;
+    }
+
+    for (const auto &pair  : *huffmanCodes) {
+        file << pair.first << " " << pair.second << " "; // Zapisujemy znak i jego kod oddzielone spacją
+    }
+
+    file.close();
 }
